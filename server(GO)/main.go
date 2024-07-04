@@ -14,10 +14,9 @@ import (
 
 func main() {
 
-	DB_URL :="postgres://postgres:postgres@localhost/postgres?sslmode=disable" 
+	DB_URL := "postgres://postgres:postgres@localhost/postgres?sslmode=disable"
 
-
-	db, err := sql.Open("postgres", DB_URL )
+	db, err := sql.Open("postgres", DB_URL)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -28,10 +27,17 @@ func main() {
 		log.Fatal(err)
 	}
 
+	_, err = db.Exec("CREATE TABLE IF NOT EXISTS cmts (id SERIAL PRIMARY KEY, pfpId INT, cmt TEXT)")
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	r := mux.NewRouter()
 	r.HandleFunc("/apiV1/profiles", controller.GetProfiles(db)).Methods("GET")
 	r.HandleFunc("/apiV1/profile", controller.CreateProfile(db)).Methods("POST")
 	r.HandleFunc("/apiV1/profiles/{id}", controller.GetProfile(db)).Methods("GET")
+	r.HandleFunc("/apiV1/cmts/{pfpId}", controller.GetCmts(db)).Methods("GET")
+	r.HandleFunc("/apiV1/cmt", controller.CreateCmt(db)).Methods("POST")
 
 	cors := handlers.CORS(
 		handlers.AllowedHeaders([]string{"Content-Type"}),
