@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"strings"
 
 	"github.com/gorilla/mux"
 	"github.com/yash-raj10/Anon/model"
@@ -22,7 +23,7 @@ func GetProfiles(db *sql.DB) http.HandlerFunc {
 
 		for rows.Next() {
 			var p model.Profile
-			if err := rows.Scan(&p.Id, &p.Name, &p.ImageSrc, &p.Collage, &p.Social); err != nil {
+			if err := rows.Scan(&p.Id, &p.Name, &p.ImageSrc, &p.Email, &p.Collage, &p.Social); err != nil {
 				log.Fatal(err)
 			}
 			profiles = append(profiles, p)
@@ -38,11 +39,11 @@ func GetProfiles(db *sql.DB) http.HandlerFunc {
 func GetProfile(db *sql.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
-		id := vars["id"]
+		email := strings.ToLower(vars["email"])
 
 		var p model.Profile
 
-		err := db.QueryRow("SELECT * From profiles WHERE id = $1", id).Scan(&p.Id, &p.Name, &p.ImageSrc, &p.Collage, &p.Social)
+		err := db.QueryRow("SELECT * From profiles WHERE email = $1", email).Scan(&p.Id, &p.Name, &p.ImageSrc, &p.Email, &p.Collage, &p.Social)
 		if err != nil {
 			w.WriteHeader(http.StatusNotFound)
 			return
@@ -57,7 +58,7 @@ func CreateProfile(db *sql.DB) http.HandlerFunc {
 		var p model.Profile
 		json.NewDecoder(r.Body).Decode(&p)
 
-		err := db.QueryRow("INSERT INTO profiles (name, imageSrc, collage, social) VALUES ($1, $2, $3, $4) RETURNING id", p.Name, p.ImageSrc, p.Collage, p.Social).Scan(&p.Id)
+		err := db.QueryRow("INSERT INTO profiles (name, imageSrc, email, collage, social) VALUES ($1, $2, $3, $4, $5) RETURNING id", p.Name, p.ImageSrc, p.Email, p.Collage, p.Social).Scan(&p.Id)
 		if err != nil {
 			log.Fatal(err)
 		}

@@ -22,7 +22,7 @@ func main() {
 	}
 	defer db.Close()
 
-	_, err = db.Exec("CREATE TABLE IF NOT EXISTS profiles (id SERIAL PRIMARY KEY, name TEXT, imageSrc TEXT, collage TEXT, social TEXT)")
+	_, err = db.Exec("CREATE TABLE IF NOT EXISTS profiles (id SERIAL PRIMARY KEY, name TEXT, imageSrc TEXT, email TEXT, collage TEXT, social TEXT)")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -35,7 +35,7 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/apiV1/profiles", controller.GetProfiles(db)).Methods("GET")
 	r.HandleFunc("/apiV1/profile", controller.CreateProfile(db)).Methods("POST")
-	r.HandleFunc("/apiV1/profiles/{id}", controller.GetProfile(db)).Methods("GET")
+	r.HandleFunc("/apiV1/profiles/{email}", controller.GetProfile(db)).Methods("GET")
 	r.HandleFunc("/apiV1/cmts/{pfpId}", controller.GetCmts(db)).Methods("GET")
 	r.HandleFunc("/apiV1/cmt", controller.CreateCmt(db)).Methods("POST")
 

@@ -1,19 +1,12 @@
 import React from "react";
-import { BiNetworkChart } from "react-icons/bi";
 import { BsIncognito } from "react-icons/bs";
-import { auth } from "@clerk/nextjs";
-import Link from "next/link";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
-
-import Image from "next/image";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
+import ProfileModel from "@/components/model/profileModel";
 
 export default async function Navbar() {
+  const user = await currentUser();
+  const { imageUrl, fullName, primaryEmailAddress } = user;
   return (
     <div className="navbar backdrop-blur bg-base-100/30 max-w-7xl border-2 rounded-3xl z-50">
       <div className="w-full flex justify-between items-center">
@@ -27,7 +20,15 @@ export default async function Navbar() {
           <a className="btn btn-ghost text-xl">Anon</a>
         </div>
 
-        <div className="flex-none gap-2 mr-3">
+        <div className="flex gap-2 mr-3">
+          {user && (
+            <ProfileModel
+              imageUrl={imageUrl}
+              name={fullName}
+              email={primaryEmailAddress.emailAddress}
+            />
+          )}
+
           <SignedOut>
             <div className="btn btn-neutral">
               {" "}
@@ -35,7 +36,7 @@ export default async function Navbar() {
             </div>
           </SignedOut>
           <SignedIn>
-            <div className="">
+            <div className=" pt-1">
               <UserButton />
             </div>
           </SignedIn>
