@@ -1,4 +1,3 @@
-import { nextui } from "@nextui-org/theme";
 import type { Config } from "tailwindcss";
 const svgToDataUri = require("mini-svg-data-uri");
 
@@ -98,7 +97,6 @@ const config = {
   // plugins: [require(tailwindcss - animate), ],
 
   plugins: [
-    nextui(),
     require("daisyui"),
     addVariablesForColors,
 

@@ -6,7 +6,7 @@ import ProfileModel from "@/components/model/profileModel";
 
 export default async function Navbar() {
   const user = await currentUser();
-  const { imageUrl, fullName, primaryEmailAddress } = user;
+  const { imageUrl, firstName, primaryEmailAddress } = user;
   return (
     <div className="navbar backdrop-blur bg-base-100/30 max-w-7xl border-2 rounded-3xl z-50">
       <div className="w-full flex justify-between items-center">
@@ -24,7 +24,7 @@ export default async function Navbar() {
           {user && (
             <ProfileModel
               imageUrl={imageUrl}
-              name={fullName}
+              name={firstName}
               email={primaryEmailAddress.emailAddress}
             />
           )}
