@@ -2,7 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import "./globals.css";
 import { BackgroundBeamsDemo } from "@/components/bgBeam";
-import Middle from "@/components/middle";
+import Middle from "@/app/middle";
 import Footer from "@/components/footer";
 
 export default function Home() {

@@ -35,7 +35,9 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/apiV1/profiles", controller.GetProfiles(db)).Methods("GET")
 	r.HandleFunc("/apiV1/profile", controller.CreateProfile(db)).Methods("POST")
-	r.HandleFunc("/apiV1/profiles/{email}", controller.GetProfile(db)).Methods("GET")
+	r.HandleFunc("/apiV1/profiles/{id}", controller.GetProfile(db)).Methods("GET")
+	r.HandleFunc("/apiV1/profile/{email}", controller.GetProfileByMAil(db)).Methods("GET")
+
 	r.HandleFunc("/apiV1/cmts/{pfpId}", controller.GetCmts(db)).Methods("GET")
 	r.HandleFunc("/apiV1/cmt", controller.CreateCmt(db)).Methods("POST")
 

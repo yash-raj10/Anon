@@ -39,8 +39,24 @@ func GetProfiles(db *sql.DB) http.HandlerFunc {
 func GetProfile(db *sql.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
-		email := strings.ToLower(vars["email"])
+		id := vars["id"]
 
+		var p model.Profile
+
+		err := db.QueryRow("SELECT * From profiles WHERE id = $1", id).Scan(&p.Id, &p.Name, &p.ImageSrc, &p.Email, &p.Collage, &p.Social)
+		if err != nil {
+			w.WriteHeader(http.StatusNotFound)
+			return
+		}
+
+		json.NewEncoder(w).Encode(p)
+	}
+}
+
+func GetProfileByMAil(db *sql.DB) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		vars := mux.Vars(r)
+		email := strings.ToLower(vars["email"])
 		var p model.Profile
 
 		err := db.QueryRow("SELECT * From profiles WHERE email = $1", email).Scan(&p.Id, &p.Name, &p.ImageSrc, &p.Email, &p.Collage, &p.Social)

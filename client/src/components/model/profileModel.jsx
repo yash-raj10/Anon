@@ -16,6 +16,7 @@ import axios from "axios";
 
 const ProfileModel = ({ imageUrl, name, email }) => {
   const [showDoneModal, setShowDoneShowModal] = useState(false);
+  console.log(email);
 
   const { register, reset, handleSubmit } = useForm({
     defaultValues: {},
@@ -25,17 +26,17 @@ const ProfileModel = ({ imageUrl, name, email }) => {
     const getUser = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:4000/apiV1/profiles/${email}`
+          `http://localhost:4000/apiV1/profile/${email}`
         );
         let x = res.data;
-        // console.log(x);
+        console.log(x);
         if (res.data) {
           setShowDoneShowModal(true);
         } else {
           console.log("registered user not found");
         }
       } catch (error) {
-        console.log(`Data not Found`, error);
+        // console.log(`Data not Found`, error);
       }
     };
     getUser();
