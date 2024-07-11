@@ -27,13 +27,13 @@ const Middle = () => {
         {data?.map((profile) => (
           <div id="cards" className=" cards card glass w-80 sm:w-96">
             <figure>
-              <img src={profile.imageSrc} alt="car!" />
+              <img src={profile.imageSrc} alt="user image" />
             </figure>
             <div className="flex w-full justify-around p-2">
               <span className="card-title">{profile.name}</span>
               <span className="pt-1">{profile.collage}</span>
               <Link href={`./profile/${profile.id}`}>
-                <button className="btn btn-info btn-sm">
+                <button className="btn btn-info btn-sm ">
                   Go to
                   <TbHandClick />
                 </button>

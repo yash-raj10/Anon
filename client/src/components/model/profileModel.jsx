@@ -53,6 +53,8 @@ const ProfileModel = ({ imageUrl, name, email }) => {
       }
     } finally {
       reset();
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      window.location.href = `/`;
     }
     // console.log(data);
     // reset();
@@ -91,6 +93,8 @@ const ProfileModel = ({ imageUrl, name, email }) => {
                     <div className="flex w-full justify-center mt-2 ">
                       <Image
                         src={imageUrl}
+                        alt="
+                        user"
                         width={300}
                         height={300}
                         className="rounded-lg border-2"
@@ -131,7 +135,8 @@ const ProfileModel = ({ imageUrl, name, email }) => {
                         name="collage"
                         {...register("collage")}
                         placeholder=" "
-                        className={` rounded-xl peer  w-full p-5 font-light bg-white/10 border-2  outline-none transition  disabled:opacity-70 disabled:cursor-not-allowed pl-4 border-neutral-300 focus:border-black`}
+                        required
+                        className={`[&:required:invalid:not(:focus)]:border-red-500 rounded-xl peer  w-full p-5 font-light bg-white/10 border-2  outline-none transition  disabled:opacity-70 disabled:cursor-not-allowed pl-4 border-neutral-300 focus`}
                       />
                       <label
                         htmlFor="collage"

@@ -48,6 +48,8 @@ const page = ({ params }) => {
       }
     } finally {
       reset();
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      window.location.href = `/profile/${id}`;
     }
     console.log(data);
     reset();
@@ -90,7 +92,8 @@ const page = ({ params }) => {
                     name="collage"
                     {...register("cmt")}
                     placeholder=" "
-                    className={` rounded-xl peer  w-full p-5 font-light bg-white/10 border-2  outline-none transition  disabled:opacity-70 disabled:cursor-not-allowed pl-4 border-neutral-300 focus:border-black`}
+                    required
+                    className={`[&:required:invalid:not(:focus)]:border-red-500 rounded-xl peer  w-full p-5 font-light bg-white/10 border-2  outline-none transition  disabled:opacity-70 disabled:cursor-not-allowed pl-4 border-neutral-300 focus:border-black`}
                   />
                   <label
                     htmlFor="collage"

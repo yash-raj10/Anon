@@ -5,16 +5,22 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 	"github.com/yash-raj10/Anon/controller"
 )
 
 func main() {
-
-	DB_URL := "postgres://postgres:postgres@localhost/postgres?sslmode=disable"
+	err := godotenv.Load(".env")
+	if err != nil {
+	  log.Fatalf("Error loading .env file")
+	}
+	DB_URL := os.Getenv("DB_URL")
+	// fmt.Println(DB_URL)
 
 	db, err := sql.Open("postgres", DB_URL)
 	if err != nil {
