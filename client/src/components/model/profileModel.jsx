@@ -26,7 +26,7 @@ const ProfileModel = ({ imageUrl, name, email }) => {
     const getUser = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:4000/apiV1/profile/${email}`
+          `${process.env.NEXT_PUBLIC_URL}/apiV1/profile/${email}`
         );
         let x = res.data;
         console.log(x);
@@ -44,7 +44,10 @@ const ProfileModel = ({ imageUrl, name, email }) => {
 
   const onSubmit = async (data) => {
     try {
-      const res = await axios.post("http://localhost:4000/apiV1/profile", data);
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_URL}/apiV1/profile`,
+        data
+      );
 
       if (res.data.success) {
         console.log(res.data.message);

@@ -6,7 +6,7 @@ import { MdAccountCircle } from "react-icons/md";
 import { useForm } from "react-hook-form";
 import { BsIncognito } from "react-icons/bs";
 
-const page = ({ params }) => {
+const Page = ({ params }) => {
   const id = params.id;
   const [pfpData, setPfpData] = useState();
   const [cmtData, setCmtData] = useState();
@@ -16,10 +16,10 @@ const page = ({ params }) => {
       const id = params.id;
       try {
         const res = await axios.get(
-          `http://localhost:4000/apiV1/profiles/${id}`
+          `${process.env.NEXT_PUBLIC_URL}/apiV1/profiles/${id}`
         );
         const response = await axios.get(
-          `http://localhost:4000/apiV1/cmts/${id}`
+          `${process.env.NEXT_PUBLIC_URL}/apiV1/cmts/${id}`
         );
         setPfpData(res.data);
         setCmtData(response.data);
@@ -39,7 +39,10 @@ const page = ({ params }) => {
   const onSubmit = async (data) => {
     data.pfpId = parseInt(data.pfpId);
     try {
-      const res = await axios.post("http://localhost:4000/apiV1/cmt", data);
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_URL}/apiV1/cmt`,
+        data
+      );
 
       if (res.data) {
         console.log(res.data.message);
@@ -124,7 +127,10 @@ const page = ({ params }) => {
 
         <div className="mt-4">
           {cmtData?.toReversed().map((cmt) => (
-            <div className="w-full border-2 rounded-xl border-blue-400 flex my-2">
+            <div
+              key={cmtData.id}
+              className="w-full border-2 rounded-xl border-blue-400 flex my-2"
+            >
               <div className="flex-col px-3 py-2  items-center ">
                 <span className="flex justify-center">
                   <BsIncognito size={25} />
@@ -142,4 +148,4 @@ const page = ({ params }) => {
   );
 };
 
-export default page;
+export default Page;

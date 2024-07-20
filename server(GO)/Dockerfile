@@ -4,10 +4,9 @@ WORKDIR /app
 
 COPY . .
 
-ENV DB_URL=$DB_URL
 
 RUN go mod tidy
-RUN go build
+RUN go build main.go
 
 EXPOSE 4000
 

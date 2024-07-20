@@ -11,7 +11,9 @@ const Middle = () => {
   useEffect(() => {
     const loadProfiles = async () => {
       try {
-        const res = await axios.get(`http://localhost:4000/apiV1/profiles`);
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_URL}/apiV1/profiles`
+        );
         // console.log(res.data);
         setData(res.data);
       } catch (error) {
@@ -25,7 +27,11 @@ const Middle = () => {
     <div>
       <div className="  px-3 pb-4 sm:px-9 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-8">
         {data?.map((profile) => (
-          <div id="cards" className=" cards card glass w-80 sm:w-96">
+          <div
+            id="cards"
+            key={data.id}
+            className=" cards card glass w-80 sm:w-96"
+          >
             <figure>
               <img src={profile.imageSrc} alt="user image" />
             </figure>
