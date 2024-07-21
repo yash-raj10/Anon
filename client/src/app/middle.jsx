@@ -24,8 +24,8 @@ const Middle = () => {
   }, []);
 
   return (
-    <div>
-      <div className="  px-3 pb-4 sm:px-9 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-8">
+    <div className="flex justify-center items-center w-full">
+      <div className="  px-3 pb-4 sm:px-9 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-8">
         {data?.map((profile) => (
           <div
             id="cards"

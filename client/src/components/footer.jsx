@@ -1,7 +1,7 @@
 import React from "react";
 import { BsIncognito } from "react-icons/bs";
 import { FaGithub } from "react-icons/fa6";
-
+import Link from "next/link";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaYoutube } from "react-icons/fa";
 
@@ -14,15 +14,15 @@ const Footer = () => {
         <p>Copyright © 2024 Anon - All right reserved</p>
       </aside>
       <nav className="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
-        <a>
+        <Link href="https://github.com/yash-raj10">
           <FaGithub size={33} />
-        </a>
-        <a>
+        </Link>
+        <Link href="https://x.com/yashrajstwt">
           <FaSquareXTwitter size={33} />
-        </a>
-        <a>
+        </Link>
+        <Link href="https://www.youtube.com/@yashraj.10">
           <FaYoutube size={35} />
-        </a>
+        </Link>
       </nav>
     </footer>
   );

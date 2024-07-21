@@ -10,6 +10,7 @@ const Page = ({ params }) => {
   const id = params.id;
   const [pfpData, setPfpData] = useState();
   const [cmtData, setCmtData] = useState();
+  const [cmtArr, setCmtArr] = useState([]);
 
   useEffect(() => {
     const getData = async () => {
@@ -44,15 +45,18 @@ const Page = ({ params }) => {
         data
       );
 
-      if (res.data) {
-        console.log(res.data.message);
+      if (res.status === 200) {
+        let Arr = cmtArr;
+        Arr.push(res.data);
+        setCmtArr(Arr);
+        // console.log(res.data);
       } else {
         console.log(res.data.error);
       }
     } finally {
       reset();
       await new Promise((resolve) => setTimeout(resolve, 500));
-      window.location.href = `/profile/${id}`;
+      // window.location.href = `/profile/${id}`;
     }
     console.log(data);
     reset();
@@ -126,9 +130,32 @@ const Page = ({ params }) => {
         )}
 
         <div className="mt-4">
+          {cmtArr && (
+            <div>
+              {cmtArr?.toReversed().map((cmt) => (
+                <div
+                  key={cmt.id}
+                  className="w-full border-2 rounded-xl border-blue-400 flex my-2"
+                >
+                  <div className="flex-col px-3 py-2  items-center ">
+                    <span className="flex justify-center">
+                      <BsIncognito size={25} />
+                    </span>
+                    <span className="text-xs border-t-2 border-blue-400">
+                      User
+                    </span>
+                  </div>
+                  <div className="rounded-xl border-2 my-1 border-blue-400 flex justify-center items-center w-full mr-1 p-1">
+                    {cmt.cmt}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
           {cmtData?.toReversed().map((cmt) => (
             <div
-              key={cmtData.id}
+              key={cmt.id}
               className="w-full border-2 rounded-xl border-blue-400 flex my-2"
             >
               <div className="flex-col px-3 py-2  items-center ">
