@@ -24,7 +24,7 @@ export function BackgroundBeamsDemo() {
         </h1>
         <p></p>
         <p className="text-neutral-500 max-w-lg mx-auto my-2 text-2xl text-center relative z-10">
-          Find people by Collage or Name and tell them what you feel for them 👀
+          Find people by Collage or Name and tell them what you feel for them anonymously 👀
         </p>
         <BackgroundBeams />
         <div className="  grid grid-cols-1 pt-2 ">
