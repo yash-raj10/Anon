@@ -15,10 +15,11 @@ import (
 )
 
 func main() {
-	err := godotenv.Load(".env.local")
-	if err != nil {
-	  log.Fatalf("Error loading .env file")
-	}
+	// err := godotenv.Load(".env.local")
+	// if err != nil {
+	  // log.Fatalf("Error loading .env file")
+	// }
+	
 	DB_URL := os.Getenv("DB_URL")
 	// fmt.Println(DB_URL)
 
