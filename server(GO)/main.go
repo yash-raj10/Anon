@@ -9,7 +9,7 @@ import (
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
-	"github.com/joho/godotenv"
+	// "github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 	"github.com/yash-raj10/Anon/controller"
 )
@@ -51,7 +51,7 @@ func main() {
 	cors := handlers.CORS(
 		handlers.AllowedHeaders([]string{"Content-Type"}),
 		handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE"}),
-		handlers.AllowedOrigins([]string{"http://localhost:3000"}),
+		handlers.AllowedOrigins([]string{"https://anon-in.vercel.app"}),
 		handlers.AllowCredentials(),
 	)
 
